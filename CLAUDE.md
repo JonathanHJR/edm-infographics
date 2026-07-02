@@ -41,10 +41,12 @@ requirement.
   O2 Data Analytics (Python) project, this multi-stage split is a genuine
   size win — Airbase actually ships a `-builder` variant for Node, unlike
   Python.
-- **`airbase.json`** — `handle: "fbi-dbe/edm-infographics"` (same team as
-  O2 Data Analytics, `fbi-dbe`) — **unconfirmed**, this project may need
-  to be created in the Airbase Console before the first `airbase deploy`
-  succeeds, same as any new project handle.
+- **`airbase.json`** — `handle: "fbi-dbe/dbe-edm-infographics"` (same team
+  as O2 Data Analytics, `fbi-dbe`). Confirmed via Airbase Console — the
+  first deploy attempt with `fbi-dbe/edm-infographics` 404'd because the
+  project didn't exist yet under that exact handle; Airbase doesn't
+  auto-create projects from `airbase.json`, they must exist in Console
+  first (project was created there as `dbe-edm-infographics`).
 - **`package.json`** `start` script is
   `next start -p ${PORT:-3000} -H 0.0.0.0` (not plain `next start`) — binds
   to all interfaces and Airbase's injected `$PORT`, per Airbase's Node.js

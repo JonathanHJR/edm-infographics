@@ -1,5 +1,5 @@
 {
   "framework": "container",
-  "handle": "fbi-dbe/edm-infographics",
+  "handle": "fbi-dbe/dbe-edm-infographics",
   "port": 3000
 }

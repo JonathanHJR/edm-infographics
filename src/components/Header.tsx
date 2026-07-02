@@ -2,16 +2,16 @@ import Link from "next/link";
 
 export function Header() {
   return (
-    <header className="border-b border-zinc-200 bg-white px-6 py-8 dark:border-zinc-800 dark:bg-black">
+    <header className="border-b-2 border-accent bg-navy px-6 py-10">
       <div className="mx-auto max-w-5xl">
         <Link href="/" className="inline-block">
-          <h1 className="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent-light">
+            Electronic Direct Mail
+          </p>
+          <h1 className="mt-1 text-3xl font-bold tracking-tight text-white">
             EDM Infographics
           </h1>
         </Link>
-        <p className="mt-1 text-zinc-600 dark:text-zinc-400">
-          Electronic Direct Mail infographics.
-        </p>
       </div>
     </header>
   );

@@ -62,11 +62,35 @@ metadata — without it, Open Graph image URLs resolve against
 the Airbase CLI same as O2's `GEMINI_API_KEY` pattern) — until then, OG
 previews will point at the wrong domain.
 
+### Critical gotcha: stale cached Docker image on redeploy
+After pushing a styling change and running `airbase deploy --yes`, the
+deploy "succeeded" suspiciously fast and the live site showed **no
+visual change at all** — even in incognito, ruling out browser caching.
+
+Cause: `docker images` showed `local.airbase.sg/edm:<hash>` and
+`registry.tc1.airbase.sg/fbi-dbe/dbe-edm-infographics:default` pointing
+to the **same image ID**, left over from the first deploy. Airbase's CLI
+reused that cached local image instead of rebuilding from the current
+source — same root cause already documented in the O2 Data Analytics
+project's `CLAUDE.md`. Not Dockerfile-specific: it recurs on any
+redeploy where a same-tagged image already exists locally, even when
+only app source (not the Dockerfile) changed.
+
+**Fix** — delete the cached image by ID (removes all tags pointing to
+it), then redeploy so a real `docker build` has to run:
+```bash
+docker images | findstr edm     # find the image ID
+docker rmi -f <image-id>
+airbase deploy --yes            # noticeably slower = it's actually rebuilding
+```
+A deploy that finishes suspiciously quickly after a code change is the
+tell that this happened again.
+
 ### Verified locally before first real deploy
 `docker build` + `docker run` tested directly (not just `next build`) —
 both `/` and `/infographics/[id]` returned HTTP 200 from inside the
-container. Not yet actually deployed to Airbase itself (no Console
-project confirmed, no live URL yet).
+container. Since deployed live to Airbase (`dbe-edm-infographics`
+project, `fbi-dbe` team) via `airbase deploy --yes`.
 
 ## Tech stack
 - **Next.js 16** (App Router, Turbopack, TypeScript) — scaffolded via

@@ -10,10 +10,10 @@ export default function Home() {
           <Link
             key={infographic.id}
             href={`/infographics/${infographic.id}`}
-            className="group flex flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg"
+            className="group flex flex-col rounded-xl border border-zinc-200 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy"
           >
             <div
-              className="relative w-full bg-zinc-100"
+              className="relative w-full overflow-hidden rounded-t-xl bg-zinc-100"
               style={{
                 aspectRatio: `${infographic.width} / ${infographic.height}`,
               }}

@@ -51,7 +51,7 @@ export default async function InfographicPage({
     <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
       <Link
         href="/"
-        className="text-sm font-semibold text-accent-dark transition-colors hover:text-navy"
+        className="rounded-sm text-sm font-semibold text-accent-dark transition-colors hover:text-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
       >
         ← Back to gallery
       </Link>
@@ -77,7 +77,7 @@ export default async function InfographicPage({
         href={infographic.src}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-6 inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-dark"
+        className="mt-6 inline-flex items-center justify-center rounded-full bg-navy px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
       >
         View original / download
       </a>

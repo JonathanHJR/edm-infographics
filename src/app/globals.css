@@ -7,6 +7,7 @@
   --color-navy-dark: #0a1230;
   --color-accent: #c9982e;
   --color-accent-light: #e3bb5c;
+  --color-accent-dark: #8a6712;
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   --color-navy-dark: var(--color-navy-dark);
   --color-accent: var(--color-accent);
   --color-accent-light: var(--color-accent-light);
+  --color-accent-dark: var(--color-accent-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

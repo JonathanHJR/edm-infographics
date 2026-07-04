@@ -68,6 +68,7 @@ export default async function InfographicPage({
           width={infographic.width}
           height={infographic.height}
           className="w-full h-auto"
+          sizes="(min-width: 768px) 720px, 100vw"
           priority
         />
       </div>

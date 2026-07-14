@@ -26,6 +26,49 @@ routes without a framework migration.
   `generateMetadata` (title/description/OG image) for link-sharing
 - `src/app/icon.tsx` — generated favicon (text monogram, no image asset)
 
+## Visual identity and accessibility (2026-07-02 to 2026-07-14)
+Navy + gold identity pulled deliberately from the one infographic's own
+colour scheme (not from any other project, and not a Vercel/O2 copy) —
+`globals.css` defines `navy`/`navy-dark`/`accent`/`accent-light` theme
+tokens. Dropped the separate OS dark-mode variant in favour of this single
+intentional look.
+
+**Contrast bug found and fixed**: the original accent gold (`#c9982e`) on
+white background measured **2.62:1** — fails WCAG AA's 4.5:1 minimum for
+text. Hit both the "Back to gallery" link and the download button's hover
+state (white text on gold background, same ratio, same failure). Computed
+actual contrast ratios rather than eyeballing it. Fixed with a separate,
+darker `accent-dark` (`#8a6712`, 5.21:1) used specifically for text/button
+contexts; kept the brighter `accent` for decorative/large elements
+(borders, header underline) where contrast rules don't apply the same way.
+
+**Keyboard focus states**: default was a barely-visible 1px browser
+outline that didn't match the design at all. Added navy/gold
+`focus-visible` rings across the header link, gallery cards, back-link,
+and download button. The gallery card specifically needed `outline`
+instead of `ring` (box-shadow-based) — it already has `shadow-sm`/
+`hover:shadow-lg`, and a `focus-visible:ring-*` utility silently failed to
+render at all alongside those (confirmed via computed styles, not just
+visual inspection: the ring's box-shadow layers stayed at zero even though
+the element correctly matched `:focus-visible`). `outline` is a separate
+CSS property from `box-shadow`, so it doesn't hit the same conflict.
+Required moving `overflow-hidden` off the card itself onto just its image
+wrapper (`rounded-t-xl`), so the card's own outline isn't clipped.
+
+**Layout width**: gallery/header/footer moved from `max-w-5xl` to
+`max-w-7xl` (with `xl:grid-cols-4`) so the grid uses more of the screen on
+wide monitors — a card grid benefits from more width, unlike body text.
+Detail page deliberately stays narrower (`max-w-3xl`) for readable line
+length and comfortable image viewing.
+
+**Image loading bug fixed**: the detail page's `<Image>` had no `sizes`
+prop, so Next.js assumed full-viewport display width and fetched a
+3840px-wide/5.2MB variant even though the container caps display at
+~720px. Adding `sizes="(min-width: 768px) 720px, 100vw"` dropped the
+actual request to ~79KB (`w=750`) — this was the entire cause of a
+reported slow load after clicking into an infographic, not a deeper
+performance issue.
+
 ## Deployment — Airbase (Docker, Node.js)
 Follows Airbase's documented Next.js Dockerfile pattern exactly (from
 `docs.app.tc1.airbase.sg/how-to/deploy-nodejs/`) rather than Next's own
